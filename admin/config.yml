@@ -1,0 +1,75 @@
+backend:
+  name: github
+  repo: browerg/practical-magic
+  branch: main
+  base_url: https://api.netlify.com
+
+# Photos uploaded through the CMS land next to the site's other images
+media_folder: "intro-images"
+public_folder: "intro-images"
+
+site_url: /
+display_url: /
+
+collections:
+  - name: "site"
+    label: "Site Content"
+    files:
+      - name: "content"
+        label: "Rates, Notice & Testimonials"
+        file: "content/site.json"
+        fields:
+          - label: "Hero Notice Banner"
+            name: "notice"
+            widget: "object"
+            hint: "The 'Please note' banner on the front page — for away dates or announcements."
+            fields:
+              - { label: "Show the banner", name: "show", widget: "boolean", default: false }
+              - { label: "Banner text", name: "text", widget: "string", hint: "e.g. Services unavailable June 15–28. Reach out for alternative resources." }
+
+          - label: "Rate Cards"
+            name: "rates"
+            widget: "object"
+            fields:
+              - label: "Pet Care"
+                name: "pet"
+                widget: "object"
+                fields:
+                  - label: "Line items"
+                    name: "items"
+                    widget: "list"
+                    fields:
+                      - { label: "Service", name: "item", widget: "string" }
+                      - { label: "Price", name: "price", widget: "string", hint: "e.g. $20 or $60/night or $150–$320" }
+                  - { label: "Fine print", name: "fineprint", widget: "text" }
+              - label: "Home Cleaning"
+                name: "cleaning"
+                widget: "object"
+                fields:
+                  - label: "Line items"
+                    name: "items"
+                    widget: "list"
+                    fields:
+                      - { label: "Service", name: "item", widget: "string" }
+                      - { label: "Price", name: "price", widget: "string" }
+                  - { label: "Fine print", name: "fineprint", widget: "text" }
+              - label: "Yard Maintenance"
+                name: "yard"
+                widget: "object"
+                fields:
+                  - label: "Line items"
+                    name: "items"
+                    widget: "list"
+                    fields:
+                      - { label: "Service", name: "item", widget: "string" }
+                      - { label: "Price", name: "price", widget: "string" }
+                  - { label: "Fine print", name: "fineprint", widget: "text" }
+
+          - label: "Testimonials"
+            name: "testimonials"
+            widget: "list"
+            required: false
+            hint: "Kind words from clients. The section only appears on the site once at least one is added."
+            fields:
+              - { label: "Quote", name: "quote", widget: "text" }
+              - { label: "Name", name: "name", widget: "string", hint: "e.g. Sarah & Biscuit" }

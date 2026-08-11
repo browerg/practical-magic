@@ -1,0 +1,32 @@
+{
+  "notice": {
+    "show": false,
+    "text": "Services unavailable June 15–28, 2026. Reach out for alternative resources."
+  },
+  "rates": {
+    "pet": {
+      "items": [
+        { "item": "30 minute walk", "price": "$20" },
+        { "item": "60 minute walk", "price": "$30" },
+        { "item": "Drop-in home visit", "price": "$30" },
+        { "item": "Overnight house sitting", "price": "$60/night" }
+      ],
+      "fineprint": "Surcharges may be applied for holiday work, multiple pets, or additional care requests. Please contact for more details."
+    },
+    "cleaning": {
+      "items": [
+        { "item": "First or one-time visit", "price": "$150–$320" },
+        { "item": "Apartment or condo", "price": "$120–$240" },
+        { "item": "2 or 3-story house", "price": "$200–$400" }
+      ],
+      "fineprint": "Before an estimate or final cost can properly be determined, please book an initial (free!) consultation with Kayla. Rates may vary depending on square footage of residence, base tidiness of space & additional services needed."
+    },
+    "yard": {
+      "items": [
+        { "item": "General labour (hourly)", "price": "$30" }
+      ],
+      "fineprint": "Rates may vary depending on details of the specific job and if additional labour or hours are required. Surcharges may be applied for holiday work, product purchases (if applicable) or any duties not listed on the Practical Magic website. Please contact for more details."
+    }
+  },
+  "testimonials": []
+}
