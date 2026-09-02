@@ -9,5 +9,153 @@
 <body>
   <!-- Decap CMS: reads admin/config.yml, edits content in the GitHub repo -->
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+
+  <!--
+    Custom preview pane. Without this, Decap dumps every field into one flat
+    list, so a testimonial's quote and author float loose among the rate cards.
+    Everything below is defensive: if the CMS API shape changes, we bail out and
+    Decap falls back to its default preview rather than breaking the admin page.
+  -->
+  <script>
+  (function () {
+    try {
+      if (!window.CMS || typeof window.h !== 'function') return;
+      var h = window.h;
+
+      // Entry data may be an Immutable Map or a plain object depending on version
+      function plain(v) {
+        return v && typeof v.toJS === 'function' ? v.toJS() : v;
+      }
+
+      var C = {
+        sage: '#2d6363', sageDark: '#1c3f3f', cream: '#faf7f2',
+        gold: '#b8956a', text: '#2c2c28', mid: '#5a5a52', soft: '#8a8a7e',
+        border: 'rgba(107,124,94,0.25)'
+      };
+
+      function sectionTitle(txt) {
+        return h('h2', { style: {
+          fontFamily: "'Cormorant Garamond', Georgia, serif",
+          fontSize: '1.5rem', fontWeight: 500, color: C.sageDark,
+          margin: '0 0 1rem', paddingBottom: '0.5rem',
+          borderBottom: '1px solid ' + C.border
+        } }, txt);
+      }
+
+      function muted(txt) {
+        return h('p', { style: { color: C.soft, fontStyle: 'italic', margin: 0 } }, txt);
+      }
+
+      function rateGroup(title, group) {
+        group = group || {};
+        var items = group.items || [];
+        var rows = items.map(function (it, i) {
+          return h('div', { key: i, style: {
+            display: 'flex', justifyContent: 'space-between',
+            alignItems: 'baseline', gap: '1rem', padding: '0.3rem 0'
+          } },
+            h('span', { style: { color: C.text } }, it && it.item ? it.item : ''),
+            h('span', { style: { flex: 1, borderBottom: '1px dotted ' + C.border } }),
+            h('strong', { style: {
+              fontFamily: "'Cormorant Garamond', Georgia, serif",
+              fontSize: '1.15rem', color: C.sageDark, fontWeight: 500
+            } }, it && it.price ? it.price : '')
+          );
+        });
+        return h('div', { style: {
+          background: '#fff', border: '1px solid ' + C.border,
+          borderRadius: '12px', padding: '1.1rem 1.3rem', marginBottom: '0.9rem'
+        } },
+          h('h3', { style: {
+            fontFamily: "'Cormorant Garamond', Georgia, serif",
+            fontSize: '1.2rem', fontWeight: 600, color: C.sage, margin: '0 0 0.6rem'
+          } }, title),
+          rows.length ? rows : muted('No line items yet.'),
+          group.fineprint ? h('p', { style: {
+            fontSize: '0.8rem', fontStyle: 'italic', color: C.soft,
+            lineHeight: 1.6, marginTop: '0.8rem', marginBottom: 0
+          } }, group.fineprint) : null
+        );
+      }
+
+      function testimonialCard(t, i) {
+        t = t || {};
+        var name = (t.name || '').trim();
+        var quote = (t.quote || '').trim();
+        return h('div', { key: i, style: {
+          background: '#fff', border: '1px solid ' + C.border,
+          borderLeft: '4px solid ' + C.gold,
+          borderRadius: '12px', padding: '1.2rem 1.4rem', marginBottom: '0.9rem'
+        } },
+          h('div', { style: { color: C.gold, fontSize: '1rem', marginBottom: '0.5rem' } }, '\u2726'),
+          h('p', { style: {
+            fontFamily: "'Cormorant Garamond', Georgia, serif",
+            fontSize: '1.15rem', fontStyle: 'italic', color: C.text,
+            lineHeight: 1.6, margin: '0 0 0.9rem'
+          } }, quote ? '\u201C' + quote + '\u201D' : h('span', { style: { color: C.soft } }, 'No quote written yet')),
+          h('div', { style: {
+            fontSize: '0.75rem', letterSpacing: '0.1em', textTransform: 'uppercase',
+            color: C.sage, fontWeight: 600
+          } }, name ? '\u2014 ' + name : h('span', { style: { color: '#c0392b' } }, '\u26A0 No name — nobody is credited for this quote'))
+        );
+      }
+
+      function SiteContentPreview(props) {
+        var data = plain(props.entry && props.entry.get ? props.entry.get('data') : null) || {};
+        var notice = data.notice || {};
+        var rates = data.rates || {};
+        var testimonials = data.testimonials || [];
+
+        return h('div', { style: {
+          padding: '1.5rem', background: C.cream, minHeight: '100%',
+          fontFamily: "'DM Sans', system-ui, sans-serif", color: C.text, lineHeight: 1.6
+        } },
+
+          // ---- Notice banner ----
+          h('section', { style: { marginBottom: '2rem' } },
+            sectionTitle('Hero Notice Banner'),
+            notice.show
+              ? h('div', { style: {
+                  background: 'rgba(184,149,106,0.15)', borderLeft: '3px solid ' + C.gold,
+                  borderRadius: '0 8px 8px 0', padding: '0.75rem 1.1rem', fontSize: '0.9rem'
+                } },
+                  h('strong', {}, 'Please note: '),
+                  notice.text || h('em', { style: { color: C.soft } }, '(no text written)')
+                )
+              : muted('Banner is switched off — visitors will not see it.')
+          ),
+
+          // ---- Rates ----
+          h('section', { style: { marginBottom: '2rem' } },
+            sectionTitle('Rate Cards'),
+            rateGroup('Pet Care', rates.pet),
+            rateGroup('Home Cleaning', rates.cleaning),
+            rateGroup('Yard Maintenance', rates.yard)
+          ),
+
+          // ---- Testimonials ----
+          h('section', {},
+            sectionTitle('Testimonials (' + testimonials.length + ')'),
+            testimonials.length
+              ? testimonials.map(testimonialCard)
+              : muted('No testimonials yet — this section stays hidden on the site until you add one.')
+          )
+        );
+      }
+
+      CMS.registerPreviewStyle(
+        "@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap');" +
+        'body { margin: 0; background: #faf7f2; }',
+        { raw: true }
+      );
+
+      // File collections register by the file's name ("content")
+      CMS.registerPreviewTemplate('content', SiteContentPreview);
+    } catch (e) {
+      // Fall back to Decap's default preview rather than breaking the admin
+      if (window.console) console.warn('Custom preview failed to load:', e);
+    }
+  })();
+  </script>
 </body>
 </html>

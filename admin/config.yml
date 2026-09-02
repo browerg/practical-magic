@@ -38,6 +38,8 @@ collections:
                   - label: "Line items"
                     name: "items"
                     widget: "list"
+                    label_singular: "Service"
+                    summary: "{{fields.item}} — {{fields.price}}"
                     fields:
                       - { label: "Service", name: "item", widget: "string" }
                       - { label: "Price", name: "price", widget: "string", hint: "e.g. $20 or $60/night or $150–$320" }
@@ -49,6 +51,8 @@ collections:
                   - label: "Line items"
                     name: "items"
                     widget: "list"
+                    label_singular: "Service"
+                    summary: "{{fields.item}} — {{fields.price}}"
                     fields:
                       - { label: "Service", name: "item", widget: "string" }
                       - { label: "Price", name: "price", widget: "string" }
@@ -60,6 +64,8 @@ collections:
                   - label: "Line items"
                     name: "items"
                     widget: "list"
+                    label_singular: "Service"
+                    summary: "{{fields.item}} — {{fields.price}}"
                     fields:
                       - { label: "Service", name: "item", widget: "string" }
                       - { label: "Price", name: "price", widget: "string" }
@@ -69,7 +75,9 @@ collections:
             name: "testimonials"
             widget: "list"
             required: false
+            label_singular: "Testimonial"
+            summary: "★  {{fields.name}} — “{{fields.quote}}”"
             hint: "Kind words from clients. The section only appears on the site once at least one is added."
             fields:
-              - { label: "Quote", name: "quote", widget: "text" }
-              - { label: "Name", name: "name", widget: "string", hint: "e.g. Sarah & Biscuit" }
+              - { label: "Who said it", name: "name", widget: "string", hint: "The client (and pet) being quoted — e.g. Sarah & Biscuit. This appears under the quote on the site." }
+              - { label: "What they said", name: "quote", widget: "text", hint: "Their words only — quotation marks are added automatically." }
