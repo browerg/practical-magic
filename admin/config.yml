@@ -81,3 +81,10 @@ collections:
             fields:
               - { label: "Who said it", name: "name", widget: "string", hint: "The client (and pet) being quoted — e.g. Sarah & Biscuit. This appears under the quote on the site." }
               - { label: "What they said", name: "quote", widget: "text", hint: "Their words only — quotation marks are added automatically." }
+
+          - label: "Service Area Tags"
+            name: "areas"
+            widget: "list"
+            required: false
+            label_singular: "Neighbourhood"
+            hint: "The little pills in the Service Area section."

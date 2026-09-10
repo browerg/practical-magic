@@ -1272,7 +1272,7 @@
       <p>
         Toronto is known as Tkarón:to — meaning <em>"tree in the water there"</em> — in acknowledgment of the original peoples of this land.
       </p>
-      <div class="area-tags">
+      <div class="area-tags" id="area-tags">
         <span class="area-tag">Carleton Village</span>
         <span class="area-tag">The Junction</span>
         <span class="area-tag">Stockyards</span>
@@ -1495,6 +1495,15 @@
           (x.name ? '<p style="font-size:0.8rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-soft);">— ' + esc(x.name) + '</p>' : '') +
           '</div>').join('');
         document.getElementById('testimonials').style.display = '';
+      }
+      // Service area tags
+      if (Array.isArray(data.areas) && data.areas.length) {
+        const wrap = document.getElementById('area-tags');
+        if (wrap) {
+          wrap.innerHTML = data.areas
+            .map(a => '<span class="area-tag">' + esc(a) + '</span>')
+            .join('');
+        }
       }
     })
     .catch(() => { /* offline or JSON missing — the built-in HTML content stays */ });
