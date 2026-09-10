@@ -88,3 +88,26 @@ collections:
             required: false
             label_singular: "Neighbourhood"
             hint: "The little pills in the Service Area section."
+
+          - label: "Terms of Service"
+            name: "terms"
+            widget: "object"
+            collapsed: true
+            hint: "The Terms of Service page (yoursite.com/terms.html). Editing here does not affect the rate cards on the home page."
+            fields:
+              - { label: "Subtitle", name: "subtitle", widget: "string", hint: "The small line under the page title." }
+              - { label: "Last revised", name: "revised", widget: "string", hint: "e.g. August 13, 2025 — worth updating whenever you change anything below." }
+              - label: "Sections"
+                name: "sections"
+                widget: "list"
+                label_singular: "Section"
+                summary: "{{fields.title}}"
+                hint: "Each one is a card on the Terms page. Drag to reorder."
+                fields:
+                  - { label: "Section title", name: "title", widget: "string", hint: "e.g. Pet Care" }
+                  - label: "Section content"
+                    name: "body"
+                    widget: "markdown"
+                    buttons: ["bold", "italic", "bulleted-list", "numbered-list"]
+                    editor_components: []
+                    hint: "Use the bullet-list button for the point-by-point terms. A line starting with ### becomes a bold sub-heading."

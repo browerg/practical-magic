@@ -62,5 +62,32 @@
       "quote": "Kayla is such a warm and trustworthy person. She is deeply community oriented, thoughtful, an excellent communicator, and has the biggest heart for animals, Nature, and kids! Since having Kayla as our Dog Walker, my daughter and I now consider her a dear friend. I highly recommend Kayla!"
     }
   ],
-  "areas": ["Carleton Village", "The Junction", "Stockyards", "Toronto West End"]
+  "areas": [
+    "Carleton Village",
+    "The Junction",
+    "Stockyards",
+    "Toronto West End"
+  ],
+  "terms": {
+    "subtitle": "Pet Care, Home Cleaning, Yard Maintenance Services",
+    "revised": "August 13, 2025",
+    "sections": [
+      {
+        "title": "Pet Care",
+        "body": "### The Pet Owner agrees to the following terms and conditions:\n\n- provide required leash, harness, jacket, collar, crate, food (or any other items deemed required for specified pet care service).\n- provide Practical Magic Solutions with all necessary instructions for their pets care and safety (including any medication or special needs)\n- for overnight and extended pet care, the client must pay at least 50% of the total cost of services one week before the start date to secure booking. The remainder owing must be paid within the week following the end of service date(s).\n- liability for any damages or injuries caused by the pet while under the care of Practical Magic Solutions\n- a surcharge of (up to) $20 may be applied for care of each additional pet living at the same residence.\n\n### Practical Magic Solutions agrees to the following terms and conditions:\n\n- perform the duties listed by the Pet Owner to the best of their abilities, in a reliable and thoughtful manner.\n- keep secure and confidential any keys, passcodes, access numbers and personal information, and return them at the end of the contracted service date\n- supply and be equipped with poop bags and any appropriate toys, treats or hydration accessories as needed\n- no liability for any injuries to the pet that are caused by animals or people outside of Practical Magic Solutions control.\n- notify the Pet Owner immediately following any incident or abnormal behaviour that occurs under the care of Practical Magic Solutions\n- administer basic first aid upon request and/or transport pet if veterinary attention is required. Under such circumstances, Kayla Vanderlip will be responsible for getting immediate advice and attention from a pet care professional and act accordingly\n- no liability for any incident that occurs during transportation of the dogs to a vet, kennel or clinic."
+      },
+      {
+        "title": "Home Clean / Organization",
+        "body": "### The Client agrees to the following terms and conditions:\n\n- provide on-site vacuum (preferred) + toilet brush or any specified products not carried by Practical Magic Solutions - (vacuum available upon request)\n\n### Practical Magic Solutions agrees to the following terms and conditions:\n\n- respect the privacy and security of the Client's home and treat every space and item with the proper care and handling\n- keep secure and confidential any keys, passcodes, access numbers and personal information, and return them at the end of the contracted service date\n- provide natural and pet-friendly cleaning solutions (baking soda, double distilled cleaning vinegar, Dawn dish soap, organic lavender essential oil, Murphy's oil soap)\n- If preferred, will use clients home cleaning products; or provide chemical solutions (cleaner with bleach, Vim, magic eraser, Pinesol)"
+      },
+      {
+        "title": "Yard Maintenance",
+        "body": "### The Client agrees to the following terms and conditions:\n\n- under request, access to ladder or tools already available on-site.\n- worker access to water refills and washroom\n\n### Practical Magic Solutions agrees to the following terms and conditions:\n\n- provide gardening tools (pruning shears, gardening knife, shovel, hand saw, top-saw, lopper, weed trimmer (electric), lawn mower (manual)\n- liability for damage of tools while in their possession and/or use.\n- keep secure and confidential any keys, passcodes, access numbers and personal information, and return them at the end of the contracted service date"
+      },
+      {
+        "title": "General",
+        "body": "### Payment\n\nAll payments must be settled within a week of receiving an invoice for specified service.\n\nFor Overnight and extended pet care, the client must pay at least 50% of the total cost of services one week before the start date to secure booking. The remainder owing must be paid within the week following the end of service date(s).\n\nA surcharge of up to $20 per visit/hour may be applied for statutory holidays or additional care/cleaning requests.\n\nClient agrees to compensation at the applicable service rate indicated on the Rate Card, unless separate agreement is agreed upon by all parties involved.\n\nEmail money transfer (EMT) or cash accepted.\n\n### Cancellation + Refunds\n\nPractical Magic Solutions must be notified of a cancellation request within 24 hours of service date. If less than 24 hours notice is given, the client will not be applicable for a full refund.\n\nExplicitly for overnight bookings (Pet Care) - cancellation requests must be given at least one week prior to the start date of service. If less than one week's notice is given, the client forfeits their 50% downpayment."
+      }
+    ]
+  }
 }

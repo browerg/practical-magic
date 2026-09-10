@@ -196,10 +196,10 @@
 <div class="page-head">
   <p class="eyebrow">Practical Magic Solutions</p>
   <h1>Agreement &amp; <em>Terms of Service</em></h1>
-  <p class="revised">Pet Care, Home Cleaning, Yard Maintenance Services · Revised August 13, 2025</p>
+  <p class="revised" id="tos-revised">Pet Care, Home Cleaning, Yard Maintenance Services · Revised August 13, 2025</p>
 </div>
 
-<div class="doc">
+<div class="doc" id="tos-doc">
 
   <div class="tos-section">
     <h2>Pet Care</h2>
@@ -272,5 +272,71 @@
   Practical Magic Solutions · Toronto West End · <a href="index.html">practicalmagic home</a>
 </footer>
 
+<script>
+// ---- TERMS HYDRATION ----
+// Renders content/site.json -> this page, so Kayla can edit the terms at /admin.
+// The hardcoded sections above are the fallback: they're only replaced after a
+// successful fetch, so a failed request never blanks the page.
+(function () {
+  var esc = function (v) {
+    return String(v == null ? '' : v).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  };
+
+  // Deliberately tiny markdown subset: headings, bullets, paragraphs, bold/italic.
+  // Text is escaped BEFORE any tags are added, so page content can never inject
+  // HTML — worth the strictness on a page people rely on being accurate.
+  function mdLite(src) {
+    var inline = function (t) {
+      return esc(t)
+        .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+        .replace(/(^|[^*])\*([^*]+)\*/g, '$1<em>$2</em>');
+    };
+    var out = [], list = null;
+    var flush = function () {
+      if (list) { out.push('<ul>' + list.join('') + '</ul>'); list = null; }
+    };
+    String(src || '').split(/\r?\n/).forEach(function (raw) {
+      var line = raw.trim();
+      if (!line) { flush(); return; }
+      var h = line.match(/^#{2,6}\s+(.*)$/);
+      if (h) { flush(); out.push('<h3>' + inline(h[1]) + '</h3>'); return; }
+      var li = line.match(/^[-*]\s+(.*)$/);
+      if (li) { list = list || []; list.push('<li>' + inline(li[1]) + '</li>'); return; }
+      flush();
+      out.push('<p>' + inline(line) + '</p>');
+    });
+    flush();
+    return out.join('');
+  }
+
+  fetch('content/site.json', { cache: 'no-store' })
+    .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(function (data) {
+      var t = data && data.terms;
+      if (!t || !Array.isArray(t.sections) || !t.sections.length) return;
+
+      var line = document.getElementById('tos-revised');
+      if (line) {
+        var bits = [];
+        if (t.subtitle) bits.push(esc(t.subtitle));
+        if (t.revised) bits.push('Revised ' + esc(t.revised));
+        if (bits.length) line.innerHTML = bits.join(' &middot; ');
+      }
+
+      var doc = document.getElementById('tos-doc');
+      if (doc) {
+        doc.innerHTML = t.sections.map(function (sec) {
+          return '<div class="tos-section"><h2>' + esc(sec.title || '') +
+                 '</h2>' + mdLite(sec.body) + '</div>';
+        }).join('');
+      }
+    })
+    .catch(function () { /* offline or JSON missing — the built-in terms stay */ });
+})();
+</script>
+
 </body>
+
 </html>
